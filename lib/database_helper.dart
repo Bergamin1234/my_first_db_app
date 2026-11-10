@@ -63,4 +63,30 @@ class DatabaseHelper {
 
     return 0;
   }
+
+  // inserir a informação atualizada
+  Future<void> salvarContador(int valor) async {
+    final db = await database;
+
+    final linhasAtualizadas = await db.update(
+      // UPDATE contador c SET c.valor = valor WHERE id = 1
+      'contador',
+      {
+        'valor': valor,
+      },
+      where: 'id = ?',
+      whereArgs: [1],
+    );
+
+    if (linhasAtualizadas == 0) {
+      await db.insert(
+        'contador',
+        {
+          'id': 1,
+          'valor': valor,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
 }
