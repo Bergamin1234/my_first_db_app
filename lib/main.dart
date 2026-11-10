@@ -6,10 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-    this.databaseHelper,
-  });
+  const MyApp({super.key, this.databaseHelper});
 
   final DatabaseHelper? databaseHelper;
 
@@ -18,24 +15,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       ),
-      home: MyHomePage(
-        title: 'App do PG',
-        databaseHelper: databaseHelper,
-      ),
+      home: MyHomePage(title: 'App do PG', databaseHelper: databaseHelper),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-    required this.title,
-    this.databaseHelper,
-  });
+  const MyHomePage({super.key, required this.title, this.databaseHelper});
 
   final String title;
   final DatabaseHelper? databaseHelper;
@@ -76,11 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(mensagem),
-        ),
-      );
+      ..showSnackBar(SnackBar(content: Text(mensagem)));
   }
 
   Future<void> _salvarContador() async {
@@ -131,9 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+            const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,

@@ -57,13 +57,16 @@ void main() {
       await novaInstancia.fecharBanco();
     });
 
-    test('zerarContador restaura registro com zero mesmo após exclusão', () async {
-      await dbHelper.salvarContador(10);
-      await dbHelper.excluirContador(1);
-      expect(await dbHelper.buscarContador(), equals(0));
+    test(
+      'zerarContador restaura registro com zero mesmo após exclusão',
+      () async {
+        await dbHelper.salvarContador(10);
+        await dbHelper.excluirContador(1);
+        expect(await dbHelper.buscarContador(), equals(0));
 
-      await dbHelper.zerarContador();
-      expect(await dbHelper.buscarContador(), equals(0));
-    });
+        await dbHelper.zerarContador();
+        expect(await dbHelper.buscarContador(), equals(0));
+      },
+    );
   });
 }

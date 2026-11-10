@@ -29,10 +29,7 @@ class DatabaseHelper {
       caminhoCompleto = 'contador.db';
     } else {
       final String pastaBanco = await getDatabasesPath();
-      caminhoCompleto = join(
-        pastaBanco,
-        'contador.db',
-      );
+      caminhoCompleto = join(pastaBanco, 'contador.db');
     }
 
     // criar a tabela
@@ -50,10 +47,7 @@ class DatabaseHelper {
         await db.insert(
           // INSERT INTO contador values(1,0)
           'contador',
-          {
-            'id': 1,
-            'valor': 0,
-          },
+          {'id': 1, 'valor': 0},
         );
       },
     );
@@ -84,22 +78,16 @@ class DatabaseHelper {
     final linhasAtualizadas = await db.update(
       // UPDATE contador c SET c.valor = valor WHERE id = 1
       'contador',
-      {
-        'valor': valor,
-      },
+      {'valor': valor},
       where: 'id = ?',
       whereArgs: [1],
     );
 
     if (linhasAtualizadas == 0) {
-      await db.insert(
-        'contador',
-        {
-          'id': 1,
-          'valor': valor,
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
+      await db.insert('contador', {
+        'id': 1,
+        'valor': valor,
+      }, conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
