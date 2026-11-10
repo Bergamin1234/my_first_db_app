@@ -62,18 +62,35 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> _salvarContador() async {
-    await databaseHelper.salvarContador(_counter);
-
+  void _mostrarMensagem(String mensagem) {
     if (!mounted) return;
 
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(
-          content: Text('Valor salvo com sucesso!'),
+        SnackBar(
+          content: Text(mensagem),
         ),
       );
+  }
+
+  Future<void> _salvarContador() async {
+    await databaseHelper.salvarContador(_counter);
+    _mostrarMensagem('Valor salvo com sucesso!');
+  }
+
+  // Método responsável por zerar o contador
+  // e persistir o valor zero no SQLite
+  Future<void> zerarContador() async {
+    await databaseHelper.zerarContador();
+
+    if (!mounted) return;
+
+    setState(() {
+      _counter = 0;
+    });
+
+    _mostrarMensagem('Contador zerado e salvo com sucesso!');
   }
 
   void _incrementCounter() {
