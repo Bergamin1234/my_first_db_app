@@ -89,4 +89,15 @@ class DatabaseHelper {
       );
     }
   }
+
+  Future<void> excluirContador(int id) async {
+    final db = await database;
+
+    await db.delete(
+      // DELETE from contador c where c.id = id
+      'contador',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
