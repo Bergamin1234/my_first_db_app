@@ -90,6 +90,11 @@ class DatabaseHelper {
     }
   }
 
+  // zerar o contador e persistir o valor zero no banco de dados
+  Future<void> zerarContador() async {
+    await salvarContador(0);
+  }
+
   Future<void> excluirContador(int id) async {
     final db = await database;
 
