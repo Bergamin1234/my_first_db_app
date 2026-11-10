@@ -45,4 +45,22 @@ class DatabaseHelper {
       },
     );
   }
+
+  // recuperar a informação
+  Future<int> buscarContador() async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> resultado = await db.query(
+      // SELECT * from contador WHERE id = 1
+      'contador',
+      where: 'id = ?',
+      whereArgs: [1],
+    );
+
+    if (resultado.isNotEmpty) {
+      return resultado.first['valor'] as int;
+    }
+
+    return 0;
+  }
 }
