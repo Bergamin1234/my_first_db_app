@@ -118,4 +118,12 @@ class DatabaseHelper {
       whereArgs: [id],
     );
   }
+
+  Future<void> fecharBanco() async {
+    final db = _database;
+    if (db != null) {
+      await db.close();
+      _database = null;
+    }
+  }
 }
