@@ -111,6 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: 'Salvar contador',
             icon: const Icon(Icons.save),
           ),
+          IconButton(
+            onPressed: zerarContador,
+            tooltip: 'Zerar contador',
+            icon: const Icon(Icons.restart_alt),
+          ),
         ],
       ),
       body: Center(
