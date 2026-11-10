@@ -62,12 +62,39 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _salvarContador() async {
+    await databaseHelper.salvarContador(_counter);
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(
+          content: Text('Valor salvo com sucesso!'),
+        ),
+      );
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            onPressed: _salvarContador,
+            tooltip: 'Salvar contador',
+            icon: const Icon(Icons.save),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -82,6 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
