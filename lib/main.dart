@@ -42,6 +42,27 @@ class _MyHomePageState extends State<MyHomePage> {
   DatabaseHelper databaseHelper = DatabaseHelper();
 
   @override
+  void initState() {
+    super.initState();
+
+    // Ao abrir o aplicativo,
+    // carrega o valor salvo no banco
+    carregarContador();
+  }
+
+  // Método responsável por buscar
+  // o valor salvo no SQLite
+  Future<void> carregarContador() async {
+    final valorSalvo = await databaseHelper.buscarContador();
+
+    if (!mounted) return;
+
+    setState(() {
+      _counter = valorSalvo;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
