@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class DatabaseHelper {
+  DatabaseHelper({this.caminhoBanco});
+
+  final String? caminhoBanco;
   Database? _database;
 
   // criar o db
@@ -15,12 +20,20 @@ class DatabaseHelper {
   }
 
   Future<Database> _iniciarBanco() async {
-    final String caminhoBanco = await getDatabasesPath();
+    final String caminhoCompleto;
 
-    final String caminhoCompleto = join(
-      caminhoBanco,
-      'contador.db',
-    );
+    if (caminhoBanco != null) {
+      caminhoCompleto = caminhoBanco!;
+    } else if (kIsWeb) {
+      databaseFactory = databaseFactoryFfiWeb;
+      caminhoCompleto = 'contador.db';
+    } else {
+      final String pastaBanco = await getDatabasesPath();
+      caminhoCompleto = join(
+        pastaBanco,
+        'contador.db',
+      );
+    }
 
     // criar a tabela
     return await openDatabase(
