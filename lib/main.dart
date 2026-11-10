@@ -129,6 +129,12 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: zerarContador,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Zerar contador'),
+            ),
           ],
         ),
       ),
