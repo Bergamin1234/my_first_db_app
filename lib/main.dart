@@ -6,7 +6,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    this.databaseHelper,
+  });
+
+  final DatabaseHelper? databaseHelper;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +22,9 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.amber,
         ),
       ),
-      home: const MyHomePage(
+      home: MyHomePage(
         title: 'App do PG',
+        databaseHelper: databaseHelper,
       ),
     );
   }
@@ -28,9 +34,11 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
     required this.title,
+    this.databaseHelper,
   });
 
   final String title;
+  final DatabaseHelper? databaseHelper;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -39,7 +47,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  DatabaseHelper databaseHelper = DatabaseHelper();
+  late final DatabaseHelper databaseHelper =
+      widget.databaseHelper ?? DatabaseHelper();
 
   @override
   void initState() {
